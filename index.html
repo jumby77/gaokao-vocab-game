@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高考英语高频词汇·闯关记忆</title>
+<style>
+:root {
+  --bg: #f5f0eb;
+  --card: #ffffff;
+  --primary: #c0392b;
+  --accent: #e74c3c;
+  --gold: #d4a017;
+  --green: #27ae60;
+  --blue: #2980b9;
+  --text: #2c3e50;
+  --sub: #7f8c8d;
+  --border: #e8e0d5;
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  --radius: 16px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  background-image: radial-gradient(ellipse at 20% 20%, #fdf2e9 0%, transparent 50%),
+                    radial-gradient(ellipse at 80% 80%, #fef9e7 0%, transparent 50%);
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #fff;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+}
+.header .title {
+  font-size: 1.4em;
+  font-weight: 800;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header .title .icon { font-size: 1.6em; }
+.days-left {
+  background: var(--accent);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Main Layout */
+.container { max-width: 800px; margin: 0 auto; padding: 16px; }
+
+/* Stats Bar */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.stat-card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 14px 10px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.stat-card .num {
+  font-size: 1.6em;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.stat-card .label { font-size: 0.75em; color: var(--sub); margin-top: 2px; }
+
+/* Progress */
+.progress-section {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.progress-section h3 {
+  font-size: 0.9em;
+  color: var(--sub);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.progress-bar-outer {
+  height: 10px;
+  background: #e8e0d5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.progress-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), #2ecc71);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+.level-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.level-badge {
+  flex: 1;
+  text-align: center;
+  padding: 8px 4px;
+  border-radius: 10px;
+  font-size: 0.75em;
+  font-weight: 700;
+  border: 2px solid var(--border);
+  transition: all 0.3s;
+}
+.level-badge.active { border-color: var(--primary); background: #fdf2f2; }
+.level-badge.unlocked { border-color: var(--green); background: #eafaf1; }
+.level-badge.locked { opacity: 0.5; }
+.level-badge .star { font-size: 1.2em; }
+
+/* Game Area */
+.game-area {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  min-height: 320px;
+  position: relative;
+}
+.word-display {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.word-big {
+  font-size: 2.6em;
+  font-weight: 800;
+  color: #1a1a2e;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+  word-break: break-all;
+}
+.word-phonetic {
+  font-size: 0.9em;
+  color: var(--sub);
+  margin-bottom: 4px;
+}
+.word-hint {
+  font-size: 0.8em;
+  color: var(--blue);
+  font-style: italic;
+}
+.question-prompt {
+  font-size: 1.1em;
+  color: var(--sub);
+  margin: 16px 0 4px;
+  text-align: center;
+}
+.question-target {
+  font-size: 2em;
+  font-weight: 700;
+  text-align: center;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+}
+
+/* Options */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.option-btn {
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  font-family: inherit;
+  font-weight: 500;
+}
+.option-btn:hover { border-color: var(--blue); background: #f0f7ff; transform: translateY(-1px); }
+.option-btn.correct { border-color: var(--green); background: #d5f5e3; animation: pulse 0.5s; }
+.option-btn.wrong { border-color: var(--accent); background: #fadbd8; animation: shake 0.5s; }
+.option-btn:disabled { pointer-events: none; }
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+/* Input mode */
+.input-area {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.input-area input {
+  flex: 1;
+  padding: 14px 18px;
+  font-size: 1.1em;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  outline: none;
+  font-family: inherit;
+  transition: border 0.2s;
+}
+.input-area input:focus { border-color: var(--blue); }
+.input-area button {
+  padding: 14px 28px;
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 12px;
+  font-size: 1em;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.input-area button:hover { background: var(--accent); transform: translateY(-1px); }
+
+/* Feedback */
+.feedback {
+  text-align: center;
+  padding: 16px;
+  margin-top: 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  display: none;
+}
+.feedback.show { display: block; animation: fadeIn 0.3s; }
+.feedback.correct-fb { background: #d5f5e3; color: #1e8449; }
+.feedback.wrong-fb { background: #fadbd8; color: #c0392b; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+
+/* Control buttons */
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 10px 24px;
+  border-radius: 25px;
+  font-size: 0.9em;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+.btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+.btn-outline:hover { background: #fdf2f2; }
+.btn-green { background: var(--green); color: #fff; }
+.btn-green:hover { background: #229954; transform: translateY(-1px); }
+
+/* Mode toggle */
+.mode-toggle {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.mode-btn {
+  padding: 8px 20px;
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  background: #fff;
+  font-size: 0.85em;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.mode-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* Result screen */
+.result-screen {
+  text-align: center;
+  padding: 30px 20px;
+}
+.result-screen .big-emoji { font-size: 4em; margin-bottom: 12px; }
+.result-screen h2 { font-size: 1.5em; margin-bottom: 8px; }
+.result-screen .score { font-size: 2.5em; font-weight: 800; color: var(--gold); }
+.result-screen .detail { color: var(--sub); margin: 12px 0 20px; line-height: 1.8; }
+
+/* Word list */
+.word-list-panel {
+  margin-top: 16px;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.word-list-panel h3 { margin-bottom: 10px; font-size: 0.95em; color: var(--text); }
+.word-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.word-tag {
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 0.78em;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: #fff;
+  transition: all 0.2s;
+}
+.word-tag.mastered { background: #d5f5e3; border-color: var(--green); color: #1e8449; }
+.word-tag.learning { background: #fef9e7; border-color: var(--gold); color: #b7950b; }
+.word-tag.new { background: #f5f5f5; border-color: #ddd; color: #999; }
+
+/* Responsive */
+@media (max-width: 500px) {
+  .stats-bar { grid-template-columns: repeat(2,1fr); }
+  .options-grid { grid-template-columns: 1fr; }
+  .word-big { font-size: 2em; }
+  .header .title { font-size: 1.1em; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="title">
+    <span class="icon">📚</span>
+    <span>高考英语·高频词汇闯关</span>
+  </div>
+  <div class="days-left" id="daysLeft">距高考仅剩 -- 天</div>
+</div>
+
+<div class="container">
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-card"><div class="num" id="statMastered">0</div><div class="label">已掌握</div></div>
+    <div class="stat-card"><div class="num" id="statStreak">0</div><div class="label">连续正确</div></div>
+    <div class="stat-card"><div class="num" id="statAccuracy">0%</div><div class="label">正确率</div></div>
+    <div class="stat-card"><div class="num" id="statToday">0</div><div class="label">今日练习</div></div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-section">
+    <h3><span>📊 掌握进度</span><span id="progressPct">0%</span></h3>
+    <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar" style="width:0%"></div></div>
+    <div class="level-row" id="levelRow"></div>
+  </div>
+
+  <!-- Mode Toggle -->
+  <div class="mode-toggle">
+    <button class="mode-btn active" onclick="switchMode('choice')">🎯 英译中（选择）</button>
+    <button class="mode-btn" onclick="switchMode('spell')">✏️ 中译英（拼写）</button>
+  </div>
+
+  <!-- Game Area -->
+  <div class="game-area" id="gameArea">
+    <div style="text-align:center;padding:60px 20px;color:var(--sub);">
+      <div style="font-size:3em;margin-bottom:16px;">🎮</div>
+      <h2 style="margin-bottom:8px;">准备开始闯关</h2>
+      <p style="margin-bottom:20px;">精选近5年高考最高频词汇，智能重复记忆</p>
+      <button class="btn btn-primary" onclick="startGame()" style="font-size:1.1em;padding:12px 36px;">🚀 开始闯关</button>
+    </div>
+  </div>
+
+  <div class="controls" id="controls" style="display:none;">
+    <button class="btn btn-outline" onclick="skipWord()">⏭ 跳过</button>
+    <button class="btn btn-outline" onclick="endSession()">📋 结束本轮</button>
+    <button class="btn btn-green" onclick="startGame()">🔄 重新开始</button>
+  </div>
+
+  <!-- Word List -->
+  <div class="word-list-panel" id="wordListPanel" style="display:none;">
+    <h3>📝 本轮词汇掌握情况 <span style="font-size:0.8em;color:var(--sub);" id="wordCount"></span></h3>
+    <div class="word-tags" id="wordTags"></div>
+  </div>
+</div>
+
+<script>
+// ==================== 词汇数据库 ====================
+// 410+个高考高频核心词汇，分为3个等级（含个人常错词汇标记）
+const WORD_BANK = {
+  level1: [ // 最高频 ~153词（几乎每年必考 + 个人常错词）
+    {en:"abandon",zh:"放弃；抛弃",phonetic:"/əˈbændən/"},{en:"ability",zh:"能力；才能",phonetic:"/əˈbɪləti/"},
+    {en:"absorb",zh:"吸收；吸引",phonetic:"/əbˈzɔːrb/"},{en:"access",zh:"通道；进入；使用权",phonetic:"/ˈækses/"},
+    {en:"account",zh:"账户；解释；说明",phonetic:"/əˈkaʊnt/"},{en:"achieve",zh:"达到；取得",phonetic:"/əˈtʃiːv/"},
+    {en:"achievement",zh:"成就；成绩",phonetic:"/əˈtʃiːvmənt/"},{en:"adapt",zh:"适应；改编",phonetic:"/əˈdæpt/"},
+    {en:"addition",zh:"增加；添加",phonetic:"/əˈdɪʃn/"},{en:"adjust",zh:"调整；适应",phonetic:"/əˈdʒʌst/"},
+    {en:"adopt",zh:"采用；收养",phonetic:"/əˈdɒpt/"},{en:"advance",zh:"前进；进步；预付款",phonetic:"/ədˈvæns/"},
+    {en:"affect",zh:"影响；感动",phonetic:"/əˈfekt/"},{en:"afford",zh:"负担得起；提供",phonetic:"/əˈfɔːrd/"},
+    {en:"allow",zh:"允许",phonetic:"/əˈlaʊ/"},{en:"amount",zh:"数量；总额",phonetic:"/əˈmaʊnt/"},
+    {en:"announce",zh:"宣布；通告",phonetic:"/əˈnaʊns/"},{en:"anxious",zh:"焦虑的；渴望的",phonetic:"/ˈæŋkʃəs/"},
+    {en:"appear",zh:"出现；似乎",phonetic:"/əˈpɪr/"},{en:"apply",zh:"申请；应用",phonetic:"/əˈplaɪ/"},
+    {en:"appreciate",zh:"欣赏；感激；升值",phonetic:"/əˈpriːʃieɪt/"},{en:"approach",zh:"方法；接近",phonetic:"/əˈproʊtʃ/"},
+    {en:"argue",zh:"争论；论证",phonetic:"/ˈɑːrɡjuː/"},{en:"arrange",zh:"安排；整理",phonetic:"/əˈreɪndʒ/"},
+    {en:"assume",zh:"假设；承担",phonetic:"/əˈsuːm/"},{en:"attempt",zh:"尝试；企图",phonetic:"/əˈtempt/"},
+    {en:"attend",zh:"参加；出席",phonetic:"/əˈtend/"},{en:"attract",zh:"吸引",phonetic:"/əˈtrækt/"},
+    {en:"available",zh:"可用的；有空的",phonetic:"/əˈveɪləbl/"},{en:"avoid",zh:"避免；回避",phonetic:"/əˈvɔɪd/"},
+    {en:"aware",zh:"意识到的；知道的",phonetic:"/əˈwer/"},{en:"balance",zh:"平衡；余额",phonetic:"/ˈbæləns/"},
+    {en:"base",zh:"基础；以…为基础",phonetic:"/beɪs/"},{en:"bear",zh:"忍受；承担；熊",phonetic:"/ber/"},
+    {en:"behave",zh:"表现；行为",phonetic:"/bɪˈheɪv/"},{en:"belong",zh:"属于",phonetic:"/bɪˈlɔːŋ/"},
+    {en:"benefit",zh:"利益；受益",phonetic:"/ˈbenɪfɪt/"},{en:"blame",zh:"责备；归咎于",phonetic:"/bleɪm/"},
+    {en:"cause",zh:"原因；引起",phonetic:"/kɔːz/"},{en:"challenge",zh:"挑战；质疑",phonetic:"/ˈtʃælɪndʒ/"},
+    {en:"character",zh:"性格；角色；汉字",phonetic:"/ˈkærəktər/"},{en:"claim",zh:"声称；索赔",phonetic:"/kleɪm/"},
+    {en:"combine",zh:"结合；联合",phonetic:"/kəmˈbaɪn/"},{en:"comment",zh:"评论；意见",phonetic:"/ˈkɒment/"},
+    {en:"communicate",zh:"交流；沟通",phonetic:"/kəˈmjuːnɪkeɪt/"},{en:"compare",zh:"比较；对比",phonetic:"/kəmˈper/"},
+    {en:"compete",zh:"竞争；比赛",phonetic:"/kəmˈpiːt/"},{en:"complete",zh:"完成；完整的",phonetic:"/kəmˈpliːt/"},
+    {en:"concern",zh:"关心；担忧；涉及",phonetic:"/kənˈsɜːrn/"},{en:"conduct",zh:"实施；行为；指挥",phonetic:"/kənˈdʌkt/"},
+    {en:"confirm",zh:"确认；证实",phonetic:"/kənˈfɜːrm/"},{en:"connect",zh:"连接；联系",phonetic:"/kəˈnekt/"},
+    {en:"consider",zh:"考虑；认为",phonetic:"/kənˈsɪdər/"},{en:"consume",zh:"消费；消耗",phonetic:"/kənˈsuːm/"},
+    {en:"contain",zh:"包含；容纳",phonetic:"/kənˈteɪn/"},{en:"continue",zh:"继续",phonetic:"/kənˈtɪnjuː/"},
+    {en:"contribute",zh:"贡献；捐献；导致",phonetic:"/kənˈtrɪbjuːt/"},{en:"control",zh:"控制；管理",phonetic:"/kənˈtroʊl/"},
+    {en:"convince",zh:"说服；使确信",phonetic:"/kənˈvɪns/"},{en:"create",zh:"创造；创建",phonetic:"/kriˈeɪt/"},
+    {en:"culture",zh:"文化；培养",phonetic:"/ˈkʌltʃər/"},{en:"damage",zh:"损害；破坏",phonetic:"/ˈdæmɪdʒ/"},
+    {en:"debate",zh:"辩论；争论",phonetic:"/dɪˈbeɪt/"},{en:"decade",zh:"十年",phonetic:"/ˈdekeɪd/"},
+    {en:"decline",zh:"下降；拒绝；衰退",phonetic:"/dɪˈklaɪn/"},{en:"defend",zh:"防御；辩护",phonetic:"/dɪˈfend/"},
+    {en:"define",zh:"定义；界定",phonetic:"/dɪˈfaɪn/"},{en:"deliver",zh:"递送；发表；接生",phonetic:"/dɪˈlɪvər/"},
+    {en:"demand",zh:"要求；需求",phonetic:"/dɪˈmænd/"},{en:"depend",zh:"依赖；取决于",phonetic:"/dɪˈpend/"},
+    {en:"describe",zh:"描述；形容",phonetic:"/dɪˈskraɪb/"},{en:"design",zh:"设计；图案",phonetic:"/dɪˈzaɪn/"},
+    {en:"determine",zh:"决定；确定",phonetic:"/dɪˈtɜːrmɪn/"},{en:"develop",zh:"发展；开发；冲洗",phonetic:"/dɪˈveləp/"},
+    {en:"discover",zh:"发现；发觉",phonetic:"/dɪˈskʌvər/"},{en:"display",zh:"展示；显示",phonetic:"/dɪˈspleɪ/"},
+    {en:"distinguish",zh:"区分；辨别",phonetic:"/dɪˈstɪŋɡwɪʃ/"},{en:"donate",zh:"捐赠；捐献",phonetic:"/ˈdoʊneɪt/"},
+    {en:"doubt",zh:"怀疑；疑问",phonetic:"/daʊt/"},{en:"educate",zh:"教育；培养",phonetic:"/ˈedʒukeɪt/"},
+    {en:"effect",zh:"效果；影响",phonetic:"/ɪˈfekt/"},{en:"effort",zh:"努力；尽力",phonetic:"/ˈefərt/"},
+    {en:"employ",zh:"雇佣；使用",phonetic:"/ɪmˈplɔɪ/"},{en:"encourage",zh:"鼓励；激励",phonetic:"/ɪnˈkɜːrɪdʒ/"},
+    {en:"environment",zh:"环境",phonetic:"/ɪnˈvaɪrənmənt/"},{en:"establish",zh:"建立；确立",phonetic:"/ɪˈstæblɪʃ/"},
+    {en:"evidence",zh:"证据；迹象",phonetic:"/ˈevɪdəns/"},{en:"examine",zh:"检查；考试",phonetic:"/ɪɡˈzæmɪn/"},
+    {en:"exchange",zh:"交换；兑换；交流",phonetic:"/ɪksˈtʃeɪndʒ/"},{en:"exist",zh:"存在；生存",phonetic:"/ɪɡˈzɪst/"},
+    {en:"expand",zh:"扩展；膨胀",phonetic:"/ɪkˈspænd/"},{en:"expect",zh:"期望；预料",phonetic:"/ɪkˈspekt/"},
+    {en:"experience",zh:"经验；经历",phonetic:"/ɪkˈspɪriəns/"},{en:"explain",zh:"解释；说明",phonetic:"/ɪkˈspleɪn/"},
+    {en:"explore",zh:"探索；探究",phonetic:"/ɪkˈsplɔːr/"},{en:"express",zh:"表达；快递",phonetic:"/ɪkˈspres/"},
+    {en:"factor",zh:"因素；因子",phonetic:"/ˈfæktər/"},{en:"feature",zh:"特征；特色",phonetic:"/ˈfiːtʃər/"},
+    {en:"focus",zh:"焦点；集中",phonetic:"/ˈfoʊkəs/"},{en:"function",zh:"功能；起作用",phonetic:"/ˈfʌŋkʃn/"},
+    {en:"generate",zh:"产生；生成",phonetic:"/ˈdʒenəreɪt/"},{en:"global",zh:"全球的",phonetic:"/ˈɡloʊbl/"},
+    {en:"guarantee",zh:"保证；担保",phonetic:"/ˌɡærənˈtiː/"},{en:"identify",zh:"识别；确认",phonetic:"/aɪˈdentɪfaɪ/"},
+    {en:"ignore",zh:"忽视；不理睬",phonetic:"/ɪɡˈnɔːr/"},{en:"illustrate",zh:"说明；阐明",phonetic:"/ˈɪləstreɪt/"},
+    {en:"impact",zh:"影响；冲击",phonetic:"/ˈɪmpækt/"},{en:"impress",zh:"留下印象",phonetic:"/ɪmˈpres/"},
+    {en:"improve",zh:"改善；提高",phonetic:"/ɪmˈpruːv/"},{en:"include",zh:"包括；包含",phonetic:"/ɪnˈkluːd/"},
+    {en:"increase",zh:"增加；增长",phonetic:"/ɪnˈkriːs/"},{en:"indicate",zh:"表明；指示",phonetic:"/ˈɪndɪkeɪt/"},
+    {en:"influence",zh:"影响；势力",phonetic:"/ˈɪnfluəns/"},{en:"inform",zh:"通知；告知",phonetic:"/ɪnˈfɔːrm/"},
+    {en:"inspire",zh:"激励；启发",phonetic:"/ɪnˈspaɪər/"},{en:"intend",zh:"打算；计划",phonetic:"/ɪnˈtend/"},
+    {en:"involve",zh:"涉及；包含；参与",phonetic:"/ɪnˈvɒlv/"},{en:"issue",zh:"问题；议题；发行",phonetic:"/ˈɪʃuː/"},
+    {en:"limit",zh:"限制；界限",phonetic:"/ˈlɪmɪt/"},{en:"manage",zh:"管理；设法做到",phonetic:"/ˈmænɪdʒ/"},
+    {en:"measure",zh:"测量；措施",phonetic:"/ˈmeʒər/"},{en:"mention",zh:"提到；提及",phonetic:"/ˈmenʃn/"},
+    {en:"observe",zh:"观察；遵守；庆祝",phonetic:"/əbˈzɜːrv/"},{en:"obtain",zh:"获得；得到",phonetic:"/əbˈteɪn/"},
+    {en:"offer",zh:"提供；提议",phonetic:"/ˈɒfər/"},{en:"operate",zh:"操作；经营；动手术",phonetic:"/ˈɒpəreɪt/"},
+    {en:"opportunity",zh:"机会；时机",phonetic:"/ˌɒpərˈtjuːnəti/"},{en:"organize",zh:"组织；安排",phonetic:"/ˈɔːrɡənaɪz/"},
+    {en:"perform",zh:"表演；执行；表现",phonetic:"/pərˈfɔːrm/"},{en:"persuade",zh:"说服；劝服",phonetic:"/pərˈsweɪd/"},
+    {en:"prefer",zh:"更喜欢；偏好",phonetic:"/prɪˈfɜːr/"},{en:"prevent",zh:"阻止；预防",phonetic:"/prɪˈvent/"},
+    {en:"process",zh:"过程；加工；处理",phonetic:"/ˈprəʊses/"},{en:"produce",zh:"生产；产生",phonetic:"/prəˈduːs/"},
+    {en:"promote",zh:"促进；推广；晋升",phonetic:"/prəˈmoʊt/"},{en:"protect",zh:"保护；防护",phonetic:"/prəˈtekt/"},
+    {en:"prove",zh:"证明；证实",phonetic:"/pruːv/"},{en:"provide",zh:"提供；供给",phonetic:"/prəˈvaɪd/"},
+    {en:"purpose",zh:"目的；意图",phonetic:"/ˈpɜːrpəs/"},{en:"quality",zh:"质量；品质",phonetic:"/ˈkwɒləti/"},
+    {en:"recognize",zh:"认出；承认；认可",phonetic:"/ˈrekəɡnaɪz/"},{en:"recommend",zh:"推荐；建议",phonetic:"/ˌrekəˈmend/"},
+    {en:"reduce",zh:"减少；降低",phonetic:"/rɪˈduːs/"},{en:"refer",zh:"提及；参考；指的是",phonetic:"/rɪˈfɜːr/"},
+    {en:"reflect",zh:"反映；反射；反思",phonetic:"/rɪˈflekt/"},{en:"refuse",zh:"拒绝",phonetic:"/rɪˈfjuːz/"},
+    {en:"relate",zh:"联系；关联",phonetic:"/rɪˈleɪt/"},{en:"remain",zh:"保持；剩余",phonetic:"/rɪˈmeɪn/"},
+    {en:"remove",zh:"移除；消除",phonetic:"/rɪˈmuːv/"},{en:"replace",zh:"替换；代替",phonetic:"/rɪˈpleɪs/"},
+    {en:"represent",zh:"代表；表示",phonetic:"/ˌreprɪˈzent/"},{en:"require",zh:"要求；需要",phonetic:"/rɪˈkwaɪər/"},
+    {en:"research",zh:"研究；调查",phonetic:"/rɪˈsɜːrtʃ/"},{en:"respond",zh:"回应；回答",phonetic:"/rɪˈspɒnd/"},
+    {en:"responsible",zh:"负责的；有责任的",phonetic:"/rɪˈspɒnsəbl/"},{en:"result",zh:"结果；导致",phonetic:"/rɪˈzʌlt/"},
+    {en:"reveal",zh:"揭露；揭示",phonetic:"/rɪˈviːl/"},{en:"risk",zh:"风险；冒险",phonetic:"/rɪsk/"},
+    {en:"seek",zh:"寻找；寻求",phonetic:"/siːk/"},{en:"select",zh:"选择；挑选",phonetic:"/sɪˈlekt/"},
+    {en:"separate",zh:"分开；分离的",phonetic:"/ˈsepəreɪt/"},{en:"settle",zh:"解决；定居；安定",phonetic:"/ˈsetl/"},
+    {en:"significant",zh:"重要的；显著的",phonetic:"/sɪɡˈnɪfɪkənt/"},{en:"situation",zh:"情况；形势",phonetic:"/ˌsɪtʃuˈeɪʃn/"},
+    {en:"solution",zh:"解决方案",phonetic:"/səˈluːʃn/"},{en:"specific",zh:"具体的；特定的",phonetic:"/spəˈsɪfɪk/"},
+    {en:"struggle",zh:"奋斗；挣扎；斗争",phonetic:"/ˈstrʌɡl/"},{en:"succeed",zh:"成功；继承",phonetic:"/səkˈsiːd/"},
+    {en:"suffer",zh:"遭受；受苦",phonetic:"/ˈsʌfər/"},{en:"suggest",zh:"建议；暗示",phonetic:"/səˈdʒest/"},
+    {en:"supply",zh:"供应；供给",phonetic:"/səˈplaɪ/"},{en:"support",zh:"支持；支撑",phonetic:"/səˈpɔːrt/"},
+    {en:"survive",zh:"幸存；存活",phonetic:"/sərˈvaɪv/"},{en:"tend",zh:"倾向；趋向",phonetic:"/tend/"},
+    {en:"tradition",zh:"传统",phonetic:"/trəˈdɪʃn/"},{en:"transfer",zh:"转移；调动；转账",phonetic:"/trænsˈfɜːr/"},
+    {en:"treat",zh:"对待；治疗；款待",phonetic:"/triːt/"},{en:"unique",zh:"独特的；唯一的",phonetic:"/juˈniːk/"},
+    {en:"value",zh:"价值；重视",phonetic:"/ˈvæljuː/"},{en:"variety",zh:"多样性；种类",phonetic:"/vəˈraɪəti/"},
+    {en:"view",zh:"观点；景色；看待",phonetic:"/vjuː/"},{en:"volunteer",zh:"志愿者；自愿",phonetic:"/ˌvɒlənˈtɪr/"},
+    {en:"wonder",zh:"想知道；奇迹",phonetic:"/ˈwʌndər/"},{en:"witness",zh:"目击者；见证",phonetic:"/ˈwɪtnəs/"},
+    {en:"yield",zh:"屈服；产出；产量",phonetic:"/jiːld/"},
+    // ====== 个人常错词汇（OCR识别自试卷） ======
+    {en:"answer",zh:"回答；答复",phonetic:"/ˈænsər/",tag:"常错"},
+    {en:"shock",zh:"震惊；使惊讶",phonetic:"/ʃɒk/",tag:"常错"},
+    {en:"meaningful",zh:"有意义的",phonetic:"/ˈmiːnɪŋfl/",tag:"常错"},
+    {en:"teach",zh:"教；教授",phonetic:"/tiːtʃ/",tag:"常错"},
+    {en:"think",zh:"认为；思考",phonetic:"/θɪŋk/",tag:"常错"},
+    {en:"catch",zh:"抓住；赶上",phonetic:"/kætʃ/",tag:"常错"},
+    {en:"lose",zh:"失去；丢失",phonetic:"/luːz/",tag:"常错"},
+    {en:"enhance",zh:"提高；增强",phonetic:"/ɪnˈhæns/",tag:"常错"},
+    {en:"awareness",zh:"意识；认识",phonetic:"/əˈwernəs/",tag:"常错"},
+    {en:"conserve",zh:"保护；节约",phonetic:"/kənˈsɜːrv/",tag:"常错"},
+    {en:"competition",zh:"竞争；比赛",phonetic:"/ˌkɒmpəˈtɪʃn/",tag:"常错"},
+    {en:"composition",zh:"作文；作曲",phonetic:"/ˌkɒmpəˈzɪʃn/",tag:"常错"},
+    {en:"ceremony",zh:"典礼；仪式",phonetic:"/ˈserəməni/",tag:"常错"},
+    {en:"emotional",zh:"情感的；情绪的",phonetic:"/ɪˈmoʊʃənl/",tag:"常错"},
+    {en:"patient",zh:"耐心的；病人",phonetic:"/ˈpeɪʃnt/",tag:"常错"},
+    {en:"opinion",zh:"意见；看法",phonetic:"/əˈpɪnjən/",tag:"常错"},
+    {en:"congratulate",zh:"祝贺",phonetic:"/kənˈɡrætʃuleɪt/",tag:"常错"},
+    {en:"arrangement",zh:"安排；布置",phonetic:"/əˈreɪndʒmənt/",tag:"常错"},
+    {en:"balanced",zh:"平衡的",phonetic:"/ˈbælənst/",tag:"常错"},
+    {en:"environmental",zh:"环境的",phonetic:"/ɪnˌvaɪrənˈmentl/",tag:"常错"},
+    {en:"traditional",zh:"传统的",phonetic:"/trəˈdɪʃənl/",tag:"常错"},
+    {en:"calligraphy",zh:"书法",phonetic:"/kəˈlɪɡrəfi/",tag:"常错"},
+    {en:"treatment",zh:"治疗；处理",phonetic:"/ˈtriːtmənt/",tag:"常错"}
+  ],
+  level2: [ // 高频 ~150词
+    {en:"absolute",zh:"绝对的；完全的",phonetic:"/ˈæbsəluːt/"},{en:"abstract",zh:"抽象的；摘要",phonetic:"/ˈæbstrækt/"},
+    {en:"academic",zh:"学术的；学院的",phonetic:"/ˌækəˈdemɪk/"},{en:"acceptable",zh:"可接受的",phonetic:"/əkˈseptəbl/"},
+    {en:"accompany",zh:"陪伴；伴随",phonetic:"/əˈkʌmpəni/"},{en:"accomplish",zh:"完成；实现",phonetic:"/əˈkɒmplɪʃ/"},
+    {en:"accurate",zh:"准确的；精确的",phonetic:"/ˈækjərət/"},{en:"acknowledge",zh:"承认；感谢",phonetic:"/əkˈnɒlɪdʒ/"},
+    {en:"acquire",zh:"获得；习得",phonetic:"/əˈkwaɪər/"},{en:"adequate",zh:"充足的；适当的",phonetic:"/ˈædɪkwət/"},
+    {en:"admire",zh:"钦佩；羡慕",phonetic:"/ədˈmaɪər/"},{en:"admit",zh:"承认；准许进入",phonetic:"/ədˈmɪt/"},
+    {en:"advantage",zh:"优势；有利条件",phonetic:"/ədˈvæntɪdʒ/"},{en:"advertise",zh:"做广告；宣传",phonetic:"/ˈædvərtaɪz/"},
+    {en:"aggressive",zh:"侵略的；好斗的；积极的",phonetic:"/əˈɡresɪv/"},{en:"alternative",zh:"替代的；选择",phonetic:"/ɔːlˈtɜːrnətɪv/"},
+    {en:"ambitious",zh:"有雄心的；野心勃勃的",phonetic:"/æmˈbɪʃəs/"},{en:"analyze",zh:"分析",phonetic:"/ˈænəlaɪz/"},
+    {en:"annual",zh:"年度的；一年生的",phonetic:"/ˈænjuəl/"},{en:"anticipate",zh:"预期；期望",phonetic:"/ænˈtɪsɪpeɪt/"},
+    {en:"apparent",zh:"明显的；表面上的",phonetic:"/əˈpærənt/"},{en:"appeal",zh:"吸引；呼吁；上诉",phonetic:"/əˈpiːl/"},
+    {en:"applicant",zh:"申请人",phonetic:"/ˈæplɪkənt/"},{en:"appropriate",zh:"适当的；合适的",phonetic:"/əˈproʊpriət/"},
+    {en:"approve",zh:"批准；赞成",phonetic:"/əˈpruːv/"},{en:"aspect",zh:"方面；层面",phonetic:"/ˈæspekt/"},
+    {en:"assess",zh:"评估；评定",phonetic:"/əˈses/"},{en:"assign",zh:"分配；指派",phonetic:"/əˈsaɪn/"},
+    {en:"assist",zh:"帮助；协助",phonetic:"/əˈsɪst/"},{en:"associate",zh:"联系；联想；同事",phonetic:"/əˈsoʊʃieɪt/"},
+    {en:"atmosphere",zh:"气氛；大气层",phonetic:"/ˈætməsfɪr/"},{en:"attach",zh:"附上；连接；依恋",phonetic:"/əˈtætʃ/"},
+    {en:"attitude",zh:"态度；看法",phonetic:"/ˈætɪtjuːd/"},{en:"authority",zh:"权威；当局",phonetic:"/əˈθɒrəti/"},
+    {en:"barrier",zh:"障碍；屏障",phonetic:"/ˈbæriər/"},{en:"beneath",zh:"在…下方",phonetic:"/bɪˈniːθ/"},
+    {en:"beyond",zh:"超出；在…那边",phonetic:"/bɪˈjɒnd/"},{en:"brief",zh:"简短的；摘要",phonetic:"/briːf/"},
+    {en:"calculate",zh:"计算；估计",phonetic:"/ˈkælkjuleɪt/"},{en:"campaign",zh:"运动；战役；竞选",phonetic:"/kæmˈpeɪn/"},
+    {en:"capable",zh:"有能力的",phonetic:"/ˈkeɪpəbl/"},{en:"capacity",zh:"容量；能力",phonetic:"/kəˈpæsəti/"},
+    {en:"capture",zh:"捕获；俘获",phonetic:"/ˈkæptʃər/"},{en:"category",zh:"类别；种类",phonetic:"/ˈkætəɡɔːri/"},
+    {en:"circumstance",zh:"环境；情况",phonetic:"/ˈsɜːrkəmstæns/"},{en:"command",zh:"命令；指挥；掌握",phonetic:"/kəˈmænd/"},
+    {en:"commit",zh:"犯罪；承诺；投入",phonetic:"/kəˈmɪt/"},{en:"community",zh:"社区；团体",phonetic:"/kəˈmjuːnəti/"},
+    {en:"companion",zh:"同伴；伙伴",phonetic:"/kəmˈpæniən/"},{en:"compensate",zh:"补偿；赔偿",phonetic:"/ˈkɒmpenseɪt/"},
+    {en:"concentrate",zh:"集中；专注",phonetic:"/ˈkɒnsntreɪt/"},{en:"concept",zh:"概念；观念",phonetic:"/ˈkɒnsept/"},
+    {en:"conclude",zh:"得出结论；结束",phonetic:"/kənˈkluːd/"},{en:"condition",zh:"条件；状况",phonetic:"/kənˈdɪʃn/"},
+    {en:"confident",zh:"自信的；确信的",phonetic:"/ˈkɒnfɪdənt/"},{en:"conflict",zh:"冲突；矛盾",phonetic:"/ˈkɒnflɪkt/"},
+    {en:"consequence",zh:"结果；后果",phonetic:"/ˈkɒnsɪkwəns/"},{en:"constant",zh:"持续的；不断的",phonetic:"/ˈkɒnstənt/"},
+    {en:"construct",zh:"建造；构建",phonetic:"/kənˈstrʌkt/"},{en:"consult",zh:"咨询；请教",phonetic:"/kənˈsʌlt/"},
+    {en:"contact",zh:"联系；接触",phonetic:"/ˈkɒntækt/"},{en:"content",zh:"内容；满足的",phonetic:"/ˈkɒntent/"},
+    {en:"contrast",zh:"对比；对照",phonetic:"/ˈkɒntræst/"},{en:"convenient",zh:"方便的；便利的",phonetic:"/kənˈviːniənt/"},
+    {en:"creative",zh:"创造性的",phonetic:"/kriˈeɪtɪv/"},{en:"critical",zh:"批评的；关键的；危急的",phonetic:"/ˈkrɪtɪkl/"},
+    {en:"curious",zh:"好奇的",phonetic:"/ˈkjʊriəs/"},{en:"current",zh:"当前的；水流；电流",phonetic:"/ˈkʌrənt/"},
+    {en:"decorate",zh:"装饰；装潢",phonetic:"/ˈdekəreɪt/"},{en:"decrease",zh:"减少；降低",phonetic:"/dɪˈkriːs/"},
+    {en:"demonstrate",zh:"证明；演示；示威",phonetic:"/ˈdemənstreɪt/"},{en:"departure",zh:"离开；出发",phonetic:"/dɪˈpɑːrtʃər/"},
+    {en:"deserve",zh:"值得；应得",phonetic:"/dɪˈzɜːrv/"},{en:"desire",zh:"渴望；欲望",phonetic:"/dɪˈzaɪər/"},
+    {en:"desperate",zh:"绝望的；不顾一切的",phonetic:"/ˈdespərət/"},{en:"destination",zh:"目的地",phonetic:"/ˌdestɪˈneɪʃn/"},
+    {en:"destroy",zh:"破坏；毁灭",phonetic:"/dɪˈstrɔɪ/"},{en:"determination",zh:"决心；决定",phonetic:"/dɪˌtɜːrmɪˈneɪʃn/"},
+    {en:"device",zh:"设备；装置",phonetic:"/dɪˈvaɪs/"},{en:"discipline",zh:"纪律；学科；训练",phonetic:"/ˈdɪsəplɪn/"},
+    {en:"dismiss",zh:"解雇；解散；不予考虑",phonetic:"/dɪsˈmɪs/"},{en:"distribute",zh:"分配；分发",phonetic:"/dɪˈstrɪbjuːt/"},
+    {en:"disturb",zh:"打扰；扰乱",phonetic:"/dɪˈstɜːrb/"},{en:"domestic",zh:"国内的；家庭的",phonetic:"/dəˈmestɪk/"},
+    {en:"economic",zh:"经济的；经济学的",phonetic:"/ˌiːkəˈnɒmɪk/"},{en:"efficient",zh:"高效的",phonetic:"/ɪˈfɪʃnt/"},
+    {en:"eliminate",zh:"消除；淘汰",phonetic:"/ɪˈlɪmɪneɪt/"},{en:"embarrass",zh:"使尴尬",phonetic:"/ɪmˈbærəs/"},
+    {en:"emerge",zh:"出现；浮现",phonetic:"/ɪˈmɜːrdʒ/"},{en:"emergency",zh:"紧急情况",phonetic:"/ɪˈmɜːrdʒənsi/"},
+    {en:"emotion",zh:"情感；情绪",phonetic:"/ɪˈmoʊʃn/"},{en:"emphasis",zh:"强调；重点",phonetic:"/ˈemfəsɪs/"},
+    {en:"enable",zh:"使能够；启用",phonetic:"/ɪˈneɪbl/"},{en:"encounter",zh:"遭遇；遇到",phonetic:"/ɪnˈkaʊntər/"},
+    {en:"engage",zh:"参与；吸引；雇佣",phonetic:"/ɪnˈɡeɪdʒ/"},{en:"enormous",zh:"巨大的；庞大的",phonetic:"/ɪˈnɔːrməs/"},
+    {en:"ensure",zh:"确保；保证",phonetic:"/ɪnˈʃʊr/"},{en:"enthusiasm",zh:"热情；热忱",phonetic:"/ɪnˈθjuːziæzəm/"},
+    {en:"entire",zh:"整个的；全部的",phonetic:"/ɪnˈtaɪər/"},{en:"equal",zh:"平等的；等于",phonetic:"/ˈiːkwəl/"},
+    {en:"essential",zh:"必要的；本质的",phonetic:"/ɪˈsenʃl/"},{en:"evaluate",zh:"评估；评价",phonetic:"/ɪˈvæljueɪt/"},
+    {en:"eventually",zh:"最终；终于",phonetic:"/ɪˈventʃuəli/"},{en:"exactly",zh:"精确地；恰好",phonetic:"/ɪɡˈzæktli/"},
+    {en:"excellent",zh:"优秀的；杰出的",phonetic:"/ˈeksələnt/"},{en:"exception",zh:"例外；除外",phonetic:"/ɪkˈsepʃn/"},
+    {en:"exhibit",zh:"展览；展示；展品",phonetic:"/ɪɡˈzɪbɪt/"},{en:"expectation",zh:"期望；预期",phonetic:"/ˌekspekˈteɪʃn/"},
+    {en:"expense",zh:"费用；开支",phonetic:"/ɪkˈspens/"},{en:"experiment",zh:"实验；试验",phonetic:"/ɪkˈsperɪmənt/"},
+    {en:"expert",zh:"专家；专业的",phonetic:"/ˈekspɜːrt/"},{en:"expose",zh:"暴露；揭露",phonetic:"/ɪkˈspoʊz/"},
+    {en:"extreme",zh:"极端的；极度的",phonetic:"/ɪkˈstriːm/"},{en:"familiar",zh:"熟悉的",phonetic:"/fəˈmɪliər/"},
+    {en:"fascinating",zh:"迷人的；极好的",phonetic:"/ˈfæsɪneɪtɪŋ/"},{en:"finance",zh:"金融；财务",phonetic:"/faɪˈnæns/"},
+    {en:"flexible",zh:"灵活的；柔韧的",phonetic:"/ˈfleksəbl/"},{en:"forbid",zh:"禁止；阻止",phonetic:"/fərˈbɪd/"},
+    {en:"fortunate",zh:"幸运的",phonetic:"/ˈfɔːrtʃənət/"},{en:"foundation",zh:"基础；基金会",phonetic:"/faʊnˈdeɪʃn/"},
+    {en:"frequent",zh:"频繁的；经常的",phonetic:"/ˈfriːkwənt/"},{en:"fundamental",zh:"基本的；根本的",phonetic:"/ˌfʌndəˈmentl/"},
+    {en:"genuine",zh:"真正的；真诚的",phonetic:"/ˈdʒenjuɪn/"},{en:"gradually",zh:"逐渐地",phonetic:"/ˈɡrædʒuəli/"},
+    {en:"handle",zh:"处理；操作；把手",phonetic:"/ˈhændl/"},{en:"hesitate",zh:"犹豫；迟疑",phonetic:"/ˈhezɪteɪt/"},
+    {en:"highlight",zh:"强调；突出",phonetic:"/ˈhaɪlaɪt/"},{en:"horizon",zh:"地平线；眼界",phonetic:"/həˈraɪzn/"},
+    {en:"ideal",zh:"理想的；完美的",phonetic:"/aɪˈdiːəl/"},{en:"imagination",zh:"想象力",phonetic:"/ɪˌmædʒɪˈneɪʃn/"},
+    {en:"immediate",zh:"立即的；直接的",phonetic:"/ɪˈmiːdiət/"},{en:"imply",zh:"暗示；意味着",phonetic:"/ɪmˈplaɪ/"},
+    {en:"impression",zh:"印象；感觉",phonetic:"/ɪmˈpreʃn/"},{en:"income",zh:"收入；收益",phonetic:"/ˈɪnkʌm/"},
+    {en:"independent",zh:"独立的；自主的",phonetic:"/ˌɪndɪˈpendənt/"},{en:"individual",zh:"个人的；个体",phonetic:"/ˌɪndɪˈvɪdʒuəl/"},
+    {en:"infer",zh:"推断；推论",phonetic:"/ɪnˈfɜːr/"},{en:"initial",zh:"最初的；首字母",phonetic:"/ɪˈnɪʃl/"},
+    {en:"innocent",zh:"无辜的；天真的",phonetic:"/ˈɪnəsnt/"},{en:"innovation",zh:"创新；革新",phonetic:"/ˌɪnəˈveɪʃn/"},
+    {en:"insert",zh:"插入；嵌入",phonetic:"/ɪnˈsɜːrt/"},{en:"insist",zh:"坚持；坚决要求",phonetic:"/ɪnˈsɪst/"},
+    {en:"institute",zh:"学院；研究所；建立",phonetic:"/ˈɪnstɪtjuːt/"},{en:"instrument",zh:"工具；乐器；仪器",phonetic:"/ˈɪnstrəmənt/"},
+    {en:"insurance",zh:"保险",phonetic:"/ɪnˈʃʊrəns/"},{en:"intelligence",zh:"智力；情报",phonetic:"/ɪnˈtelɪdʒəns/"},
+    {en:"intention",zh:"意图；目的",phonetic:"/ɪnˈtenʃn/"},{en:"interact",zh:"互动；相互作用",phonetic:"/ˌɪntərˈækt/"},
+    {en:"interfere",zh:"干涉；干扰",phonetic:"/ˌɪntərˈfɪr/"},{en:"interpret",zh:"解释；口译",phonetic:"/ɪnˈtɜːrprɪt/"},
+    {en:"introduce",zh:"介绍；引入",phonetic:"/ˌɪntrəˈduːs/"},{en:"invest",zh:"投资；投入",phonetic:"/ɪnˈvest/"},
+    {en:"investigate",zh:"调查；研究",phonetic:"/ɪnˈvestɪɡeɪt/"},{en:"isolate",zh:"隔离；孤立",phonetic:"/ˈaɪsəleɪt/"},
+    {en:"justify",zh:"证明…正当；辩护",phonetic:"/ˈdʒʌstɪfaɪ/"},{en:"launch",zh:"发射；启动；推出",phonetic:"/lɔːntʃ/"},
+    {en:"locate",zh:"定位；位于",phonetic:"/loʊˈkeɪt/"},{en:"logical",zh:"逻辑的；合理的",phonetic:"/ˈlɒdʒɪkl/"},
+    {en:"maintain",zh:"维持；保养；坚持",phonetic:"/meɪnˈteɪn/"},{en:"manufacture",zh:"制造；生产",phonetic:"/ˌmænjuˈfæktʃər/"},
+    {en:"mental",zh:"精神的；心理的",phonetic:"/ˈmentl/"},{en:"merely",zh:"仅仅；只不过",phonetic:"/ˈmɪrli/"},
+    {en:"military",zh:"军事的；军队",phonetic:"/ˈmɪlətri/"},{en:"minor",zh:"较小的；次要的；未成年人",phonetic:"/ˈmaɪnər/"},
+    {en:"modify",zh:"修改；调整",phonetic:"/ˈmɒdɪfaɪ/"},{en:"motivate",zh:"激励；激发",phonetic:"/ˈmoʊtɪveɪt/"},
+    {en:"negative",zh:"消极的；否定的；负的",phonetic:"/ˈneɡətɪv/"},{en:"negotiate",zh:"谈判；协商",phonetic:"/nɪˈɡoʊʃieɪt/"},
+    {en:"nevertheless",zh:"然而；不过",phonetic:"/ˌnevərðəˈles/"},{en:"normal",zh:"正常的；标准的",phonetic:"/ˈnɔːrml/"},
+    {en:"numerous",zh:"许多的；大量的",phonetic:"/ˈnjuːmərəs/"},{en:"obvious",zh:"明显的；显然的",phonetic:"/ˈɒbviəs/"},
+    {en:"occupy",zh:"占据；占用；使忙碌",phonetic:"/ˈɒkjupaɪ/"},{en:"oppose",zh:"反对；对抗",phonetic:"/əˈpoʊz/"},
+    {en:"original",zh:"原来的；原创的",phonetic:"/əˈrɪdʒənl/"},{en:"otherwise",zh:"否则；另外",phonetic:"/ˈʌðərwaɪz/"},
+    {en:"outstanding",zh:"杰出的；未解决的",phonetic:"/aʊtˈstændɪŋ/"},{en:"overcome",zh:"克服；战胜",phonetic:"/ˌoʊvərˈkʌm/"},
+    {en:"overlook",zh:"俯瞰；忽视；宽恕",phonetic:"/ˌoʊvərˈlʊk/"},{en:"participate",zh:"参与；参加",phonetic:"/pɑːrˈtɪsɪpeɪt/"},
+    {en:"particular",zh:"特别的；特定的",phonetic:"/pərˈtɪkjələr/"},{en:"passion",zh:"热情；激情",phonetic:"/ˈpæʃn/"},
+    {en:"patience",zh:"耐心；忍耐",phonetic:"/ˈpeɪʃns/"},{en:"permanent",zh:"永久的；长期的",phonetic:"/ˈpɜːrmənənt/"},
+    {en:"phenomenon",zh:"现象",phonetic:"/fɪˈnɒmɪnən/"},{en:"policy",zh:"政策；策略",phonetic:"/ˈpɒləsi/"},
+    {en:"popular",zh:"流行的；受欢迎的",phonetic:"/ˈpɒpjələr/"},{en:"possess",zh:"拥有；具有",phonetic:"/pəˈzes/"},
+    {en:"potential",zh:"潜力；潜在的",phonetic:"/pəˈtenʃl/"},{en:"predict",zh:"预测；预言",phonetic:"/prɪˈdɪkt/"},
+    {en:"preserve",zh:"保护；保存；维持",phonetic:"/prɪˈzɜːrv/"},{en:"previous",zh:"以前的；先前的",phonetic:"/ˈpriːviəs/"},
+    {en:"principle",zh:"原则；原理",phonetic:"/ˈprɪnsəpl/"},{en:"priority",zh:"优先；重点",phonetic:"/praɪˈɒrəti/"},
+    {en:"procedure",zh:"程序；步骤",phonetic:"/prəˈsiːdʒər/"},{en:"profession",zh:"职业；专业",phonetic:"/prəˈfeʃn/"},
+    {en:"profit",zh:"利润；收益",phonetic:"/ˈprɒfɪt/"},{en:"progress",zh:"进步；进展",phonetic:"/ˈproʊɡres/"},
+    {en:"project",zh:"项目；计划；投射",phonetic:"/ˈprɒdʒekt/"},{en:"promise",zh:"承诺；许诺",phonetic:"/ˈprɒmɪs/"},
+    {en:"property",zh:"财产；特性",phonetic:"/ˈprɒpərti/"},{en:"proposal",zh:"提议；建议",phonetic:"/prəˈpoʊzl/"},
+    {en:"prospect",zh:"前景；展望",phonetic:"/ˈprɒspekt/"},{en:"publish",zh:"出版；发表",phonetic:"/ˈpʌblɪʃ/"},
+    {en:"purchase",zh:"购买",phonetic:"/ˈpɜːrtʃəs/"},{en:"pursue",zh:"追求；追赶",phonetic:"/pərˈsuː/"},
+    {en:"range",zh:"范围；一系列",phonetic:"/reɪndʒ/"},{en:"rapid",zh:"迅速的；快速的",phonetic:"/ˈræpɪd/"},
+    {en:"react",zh:"反应；回应",phonetic:"/riˈækt/"},{en:"realistic",zh:"现实的；实际的",phonetic:"/ˌriːəˈlɪstɪk/"},
+    {en:"reasonable",zh:"合理的；公道的",phonetic:"/ˈriːznəbl/"},{en:"recover",zh:"恢复；康复",phonetic:"/rɪˈkʌvər/"},
+    {en:"reject",zh:"拒绝；排斥",phonetic:"/rɪˈdʒekt/"},{en:"release",zh:"释放；发布；发行",phonetic:"/rɪˈliːs/"},
+    {en:"relevant",zh:"相关的；有关的",phonetic:"/ˈreləvənt/"},{en:"rely",zh:"依赖；依靠",phonetic:"/rɪˈlaɪ/"},
+    {en:"remarkable",zh:"非凡的；显著的",phonetic:"/rɪˈmɑːrkəbl/"},{en:"remote",zh:"偏远的；遥远的",phonetic:"/rɪˈmoʊt/"},
+    {en:"reputation",zh:"名声；声誉",phonetic:"/ˌrepjuˈteɪʃn/"},{en:"request",zh:"请求；要求",phonetic:"/rɪˈkwest/"},
+    {en:"reserve",zh:"保留；预订；储备",phonetic:"/rɪˈzɜːrv/"},{en:"resolve",zh:"解决；决心",phonetic:"/rɪˈzɒlv/"},
+    {en:"resource",zh:"资源",phonetic:"/rɪˈsɔːrs/"},{en:"restrict",zh:"限制；约束",phonetic:"/rɪˈstrɪkt/"},
+    {en:"route",zh:"路线；路径",phonetic:"/ruːt/"},{en:"schedule",zh:"日程；时间表",phonetic:"/ˈskedʒuːl/"},
+    {en:"secure",zh:"安全的；获得；保护",phonetic:"/sɪˈkjʊr/"},{en:"sensitive",zh:"敏感的；灵敏的",phonetic:"/ˈsensətɪv/"},
+    {en:"shelter",zh:"庇护所；遮蔽",phonetic:"/ˈʃeltər/"},{en:"signal",zh:"信号；标志",phonetic:"/ˈsɪɡnəl/"},
+    {en:"similar",zh:"相似的；类似的",phonetic:"/ˈsɪmələr/"},{en:"source",zh:"来源；源头",phonetic:"/sɔːrs/"},
+    {en:"staff",zh:"员工；全体职员",phonetic:"/stæf/"},{en:"standard",zh:"标准；水平",phonetic:"/ˈstændərd/"},
+    {en:"status",zh:"地位；状态",phonetic:"/ˈsteɪtəs/"},{en:"steady",zh:"稳定的；持续的",phonetic:"/ˈstedi/"},
+    {en:"strategy",zh:"策略；战略",phonetic:"/ˈstrætədʒi/"},{en:"strength",zh:"力量；优势",phonetic:"/streŋθ/"},
+    {en:"structure",zh:"结构；构造",phonetic:"/ˈstrʌktʃər/"},{en:"substitute",zh:"替代品；替代",phonetic:"/ˈsʌbstɪtjuːt/"},
+    {en:"sufficient",zh:"足够的；充分的",phonetic:"/səˈfɪʃnt/"},{en:"summarize",zh:"总结；概括",phonetic:"/ˈsʌməraɪz/"},
+    {en:"superior",zh:"优越的；上级的",phonetic:"/suːˈpɪriər/"},{en:"surround",zh:"围绕；包围",phonetic:"/səˈraʊnd/"},
+    {en:"survival",zh:"生存；幸存",phonetic:"/sərˈvaɪvl/"},{en:"suspect",zh:"怀疑；嫌疑犯",phonetic:"/səˈspekt/"},
+    {en:"symbol",zh:"象征；符号",phonetic:"/ˈsɪmbl/"},{en:"sympathy",zh:"同情；赞同",phonetic:"/ˈsɪmpəθi/"},
+    {en:"target",zh:"目标；靶子",phonetic:"/ˈtɑːrɡɪt/"},{en:"technique",zh:"技术；技巧",phonetic:"/tekˈniːk/"},
+    {en:"temporary",zh:"临时的；暂时的",phonetic:"/ˈtempəreri/"},{en:"tendency",zh:"趋势；倾向",phonetic:"/ˈtendənsi/"},
+    {en:"thorough",zh:"彻底的；全面的",phonetic:"/ˈθʌrə/"},{en:"threaten",zh:"威胁；恐吓",phonetic:"/ˈθretn/"},
+    {en:"tolerate",zh:"容忍；忍受",phonetic:"/ˈtɒləreɪt/"},{en:"transform",zh:"转变；改变",phonetic:"/trænsˈfɔːrm/"},
+    {en:"typical",zh:"典型的；特有的",phonetic:"/ˈtɪpɪkl/"},{en:"uncomfortable",zh:"不舒服的",phonetic:"/ʌnˈkʌmftəbl/"},
+    {en:"unexpected",zh:"意外的；出乎意料的",phonetic:"/ˌʌnɪkˈspektɪd/"},{en:"unfortunately",zh:"不幸地",phonetic:"/ʌnˈfɔːrtʃənətli/"},
+    {en:"universal",zh:"普遍的；通用的",phonetic:"/ˌjuːnɪˈvɜːrsl/"},{en:"urgent",zh:"紧急的；急迫的",phonetic:"/ˈɜːrdʒənt/"},
+    {en:"various",zh:"各种各样的",phonetic:"/ˈveriəs/"},{en:"version",zh:"版本；说法",phonetic:"/ˈvɜːrʒn/"},
+    {en:"visible",zh:"可见的；明显的",phonetic:"/ˈvɪzəbl/"},{en:"vision",zh:"视力；愿景；远见",phonetic:"/ˈvɪʒn/"},
+    {en:"vital",zh:"至关重要的；生命的",phonetic:"/ˈvaɪtl/"},{en:"vivid",zh:"生动的；鲜明的",phonetic:"/ˈvɪvɪd/"},
+    {en:"widespread",zh:"广泛的；普遍的",phonetic:"/ˈwaɪdspred/"},{en:"worthwhile",zh:"值得的",phonetic:"/ˌwɜːrθˈwaɪl/"}
+  ],
+  level3: [ // 中高频 ~130词
+    {en:"absence",zh:"缺席；缺乏",phonetic:"/ˈæbsəns/"},{en:"absorb",zh:"吸收；吸引",phonetic:"/əbˈzɔːrb/"},
+    {en:"abuse",zh:"滥用；虐待",phonetic:"/əˈbjuːz/"},{en:"accuse",zh:"指控；指责",phonetic:"/əˈkjuːz/"},
+    {en:"administration",zh:"管理；行政",phonetic:"/ədˌmɪnɪˈstreɪʃn/"},{en:"adolescent",zh:"青少年；青春期的",phonetic:"/ˌædəˈlesnt/"},
+    {en:"agent",zh:"代理人；代理商",phonetic:"/ˈeɪdʒənt/"},{en:"aid",zh:"援助；帮助",phonetic:"/eɪd/"},
+    {en:"alarm",zh:"警报；惊恐",phonetic:"/əˈlɑːrm/"},{en:"amaze",zh:"使惊奇；使惊讶",phonetic:"/əˈmeɪz/"},
+    {en:"amuse",zh:"逗乐；娱乐",phonetic:"/əˈmjuːz/"},{en:"anxiety",zh:"焦虑；忧虑",phonetic:"/æŋˈzaɪəti/"},
+    {en:"apart",zh:"分开；分离",phonetic:"/əˈpɑːrt/"},{en:"appetite",zh:"食欲；胃口",phonetic:"/ˈæpɪtaɪt/"},
+    {en:"apply",zh:"申请；应用",phonetic:"/əˈplaɪ/"},{en:"architecture",zh:"建筑；建筑学",phonetic:"/ˈɑːrkɪtektʃər/"},
+    {en:"arise",zh:"出现；产生；起床",phonetic:"/əˈraɪz/"},{en:"artificial",zh:"人工的；人造的",phonetic:"/ˌɑːrtɪˈfɪʃl/"},
+    {en:"astonish",zh:"使惊讶",phonetic:"/əˈstɒnɪʃ/"},{en:"athlete",zh:"运动员",phonetic:"/ˈæθliːt/"},
+    {en:"attack",zh:"攻击；袭击",phonetic:"/əˈtæk/"},{en:"automatic",zh:"自动的",phonetic:"/ˌɔːtəˈmætɪk/"},
+    {en:"available",zh:"可用的",phonetic:"/əˈveɪləbl/"},{en:"bargain",zh:"讨价还价；便宜货",phonetic:"/ˈbɑːrɡən/"},
+    {en:"battle",zh:"战斗；斗争",phonetic:"/ˈbætl/"},{en:"bear",zh:"忍受；熊",phonetic:"/ber/"},
+    {en:"behalf",zh:"代表；利益",phonetic:"/bɪˈhæf/"},{en:"billion",zh:"十亿",phonetic:"/ˈbɪljən/"},
+    {en:"blank",zh:"空白的；空白处",phonetic:"/blæŋk/"},{en:"blow",zh:"吹；打击",phonetic:"/bloʊ/"},
+    {en:"bond",zh:"纽带；债券；结合",phonetic:"/bɒnd/"},{en:"brand",zh:"品牌；商标",phonetic:"/brænd/"},
+    {en:"broadcast",zh:"广播；播送",phonetic:"/ˈbrɔːdkæst/"},{en:"budget",zh:"预算",phonetic:"/ˈbʌdʒɪt/"},
+    {en:"burden",zh:"负担；重担",phonetic:"/ˈbɜːrdn/"},{en:"candidate",zh:"候选人；应试者",phonetic:"/ˈkændɪdət/"},
+    {en:"career",zh:"职业；生涯",phonetic:"/kəˈrɪr/"},{en:"cargo",zh:"货物；货船",phonetic:"/ˈkɑːrɡoʊ/"},
+    {en:"celebrate",zh:"庆祝；赞美",phonetic:"/ˈselɪbreɪt/"},{en:"certificate",zh:"证书；证明",phonetic:"/sərˈtɪfɪkət/"},
+    {en:"charity",zh:"慈善；慈善机构",phonetic:"/ˈtʃærəti/"},{en:"chemical",zh:"化学的；化学品",phonetic:"/ˈkemɪkl/"},
+    {en:"chief",zh:"首领；主要的",phonetic:"/tʃiːf/"},{en:"citizen",zh:"公民；市民",phonetic:"/ˈsɪtɪzn/"},
+    {en:"civilization",zh:"文明",phonetic:"/ˌsɪvəlaɪˈzeɪʃn/"},{en:"climate",zh:"气候；风气",phonetic:"/ˈklaɪmət/"},
+    {en:"commercial",zh:"商业的；广告",phonetic:"/kəˈmɜːrʃl/"},{en:"complaint",zh:"投诉；抱怨",phonetic:"/kəmˈpleɪnt/"},
+    {en:"complex",zh:"复杂的；复合体",phonetic:"/kəmˈpleks/"},{en:"component",zh:"组成部分；组件",phonetic:"/kəmˈpoʊnənt/"},
+    {en:"compose",zh:"组成；创作；作曲",phonetic:"/kəmˈpoʊz/"},{en:"comprehension",zh:"理解；理解力",phonetic:"/ˌkɒmprɪˈhenʃn/"},
+    {en:"conference",zh:"会议；讨论会",phonetic:"/ˈkɒnfərəns/"},{en:"confidence",zh:"信心；自信",phonetic:"/ˈkɒnfɪdəns/"},
+    {en:"conservation",zh:"保护；保存",phonetic:"/ˌkɒnsərˈveɪʃn/"},{en:"considerate",zh:"体贴的；考虑周到的",phonetic:"/kənˈsɪdərət/"},
+    {en:"consistent",zh:"一致的；始终如一的",phonetic:"/kənˈsɪstənt/"},{en:"constitution",zh:"宪法；构成",phonetic:"/ˌkɒnstɪˈtjuːʃn/"},
+    {en:"consultant",zh:"顾问；咨询师",phonetic:"/kənˈsʌltənt/"},{en:"contemporary",zh:"当代的；同时代的",phonetic:"/kənˈtempəreri/"},
+    {en:"contribution",zh:"贡献；捐献",phonetic:"/ˌkɒntrɪˈbjuːʃn/"},{en:"convenience",zh:"方便；便利",phonetic:"/kənˈviːniəns/"},
+    {en:"cooperate",zh:"合作；配合",phonetic:"/koʊˈɒpəreɪt/"},{en:"correspond",zh:"符合；通信；对应",phonetic:"/ˌkɒrəˈspɒnd/"},
+    {en:"credit",zh:"信用；学分；赞扬",phonetic:"/ˈkredɪt/"},{en:"criminal",zh:"罪犯；犯罪的",phonetic:"/ˈkrɪmɪnl/"},
+    {en:"crisis",zh:"危机；紧要关头",phonetic:"/ˈkraɪsɪs/"},{en:"curiosity",zh:"好奇心",phonetic:"/ˌkjʊriˈɒsəti/"},
+    {en:"deadline",zh:"截止日期",phonetic:"/ˈdedlaɪn/"},{en:"deliberately",zh:"故意地；慎重地",phonetic:"/dɪˈlɪbərətli/"},
+    {en:"deposit",zh:"存款；押金；沉积",phonetic:"/dɪˈpɒzɪt/"},{en:"depression",zh:"抑郁；萧条",phonetic:"/dɪˈpreʃn/"},
+    {en:"description",zh:"描述；说明",phonetic:"/dɪˈskrɪpʃn/"},{en:"digital",zh:"数字的；数码的",phonetic:"/ˈdɪdʒɪtl/"},
+    {en:"dilemma",zh:"困境；进退两难",phonetic:"/dɪˈlemə/"},{en:"dimension",zh:"维度；尺寸",phonetic:"/daɪˈmenʃn/"},
+    {en:"diploma",zh:"文凭；毕业证书",phonetic:"/dɪˈploʊmə/"},{en:"disaster",zh:"灾难；灾祸",phonetic:"/dɪˈzæstər/"},
+    {en:"discount",zh:"折扣；打折",phonetic:"/ˈdɪskaʊnt/"},{en:"discrimination",zh:"歧视；辨别",phonetic:"/dɪˌskrɪmɪˈneɪʃn/"},
+    {en:"diverse",zh:"多样的；不同的",phonetic:"/daɪˈvɜːrs/"},{en:"document",zh:"文件；文档",phonetic:"/ˈdɒkjumənt/"},
+    {en:"draft",zh:"草稿；起草；汇票",phonetic:"/dræft/"},{en:"dramatic",zh:"戏剧性的；巨大的",phonetic:"/drəˈmætɪk/"},
+    {en:"ease",zh:"轻松；缓解",phonetic:"/iːz/"},{en:"edition",zh:"版本；版次",phonetic:"/ɪˈdɪʃn/"},
+    {en:"element",zh:"元素；要素",phonetic:"/ˈelɪmənt/"},{en:"embrace",zh:"拥抱；包含；欣然接受",phonetic:"/ɪmˈbreɪs/"},
+    {en:"enterprise",zh:"企业；事业心",phonetic:"/ˈentərpraɪz/"},{en:"equip",zh:"装备；配备",phonetic:"/ɪˈkwɪp/"},
+    {en:"era",zh:"时代；纪元",phonetic:"/ˈɪrə/"},{en:"escape",zh:"逃跑；逃避；逃脱",phonetic:"/ɪˈskeɪp/"},
+    {en:"estimate",zh:"估计；估算",phonetic:"/ˈestɪmeɪt/"},{en:"evolution",zh:"进化；演变",phonetic:"/ˌiːvəˈluːʃn/"},
+    {en:"exaggerate",zh:"夸张；夸大",phonetic:"/ɪɡˈzædʒəreɪt/"},{en:"executive",zh:"行政的；主管",phonetic:"/ɪɡˈzekjətɪv/"},
+    {en:"explosion",zh:"爆炸；激增",phonetic:"/ɪkˈsploʊʒn/"},{en:"extension",zh:"延伸；扩展；分机",phonetic:"/ɪkˈstenʃn/"},
+    {en:"facility",zh:"设施；设备",phonetic:"/fəˈsɪləti/"},{en:"faith",zh:"信念；信仰；信心",phonetic:"/feɪθ/"},
+    {en:"fiction",zh:"小说；虚构",phonetic:"/ˈfɪkʃn/"},{en:"figure",zh:"数字；人物；图形",phonetic:"/ˈfɪɡjər/"},
+    {en:"financial",zh:"金融的；财务的",phonetic:"/faɪˈnænʃl/"},{en:"flourish",zh:"繁荣；兴旺",phonetic:"/ˈflɜːrɪʃ/"},
+    {en:"forecast",zh:"预测；预报",phonetic:"/ˈfɔːrkæst/"},{en:"formal",zh:"正式的；正规的",phonetic:"/ˈfɔːrml/"},
+    {en:"former",zh:"以前的；前者",phonetic:"/ˈfɔːrmər/"},{en:"fortune",zh:"财富；运气",phonetic:"/ˈfɔːrtʃuːn/"},
+    {en:"frame",zh:"框架；结构；框",phonetic:"/freɪm/"},{en:"frustrate",zh:"使沮丧；挫败",phonetic:"/ˈfrʌstreɪt/"},
+    {en:"fuel",zh:"燃料；加油",phonetic:"/ˈfjuːəl/"},{en:"generous",zh:"慷慨的；大方的",phonetic:"/ˈdʒenərəs/"},
+    {en:"gesture",zh:"手势；姿态",phonetic:"/ˈdʒestʃər/"},{en:"grateful",zh:"感激的；感谢的",phonetic:"/ˈɡreɪtfl/"},
+    {en:"hardship",zh:"困难；艰难",phonetic:"/ˈhɑːrdʃɪp/"},{en:"harmony",zh:"和谐；融洽",phonetic:"/ˈhɑːrməni/"},
+    {en:"heritage",zh:"遗产；传统",phonetic:"/ˈherɪtɪdʒ/"},{en:"household",zh:"家庭；家用的",phonetic:"/ˈhaʊshoʊld/"},
+    {en:"identity",zh:"身份；同一性",phonetic:"/aɪˈdentəti/"},{en:"illegal",zh:"非法的；违法的",phonetic:"/ɪˈliːɡl/"},
+    {en:"immigrant",zh:"移民；外来者",phonetic:"/ˈɪmɪɡrənt/"},{en:"implement",zh:"实施；执行；工具",phonetic:"/ˈɪmplɪment/"},
+    {en:"incident",zh:"事件；事变",phonetic:"/ˈɪnsɪdənt/"},{en:"incredible",zh:"难以置信的",phonetic:"/ɪnˈkredəbl/"},
+    {en:"inevitable",zh:"不可避免的",phonetic:"/ɪnˈevɪtəbl/"},{en:"inspiration",zh:"灵感；鼓舞",phonetic:"/ˌɪnspəˈreɪʃn/"},
+    {en:"instant",zh:"立刻的；瞬间",phonetic:"/ˈɪnstənt/"},{en:"institution",zh:"机构；制度",phonetic:"/ˌɪnstɪˈtjuːʃn/"},
+    {en:"instruction",zh:"指示；说明",phonetic:"/ɪnˈstrʌkʃn/"},{en:"intense",zh:"强烈的；剧烈的",phonetic:"/ɪnˈtens/"},
+    {en:"interaction",zh:"互动；相互作用",phonetic:"/ˌɪntərˈækʃn/"},{en:"internal",zh:"内部的；国内的",phonetic:"/ɪnˈtɜːrnl/"},
+    {en:"invention",zh:"发明；创造",phonetic:"/ɪnˈvenʃn/"},{en:"investment",zh:"投资；投入",phonetic:"/ɪnˈvestmənt/"},
+    {en:"journal",zh:"期刊；日志",phonetic:"/ˈdʒɜːrnl/"},{en:"justice",zh:"正义；公正；司法",phonetic:"/ˈdʒʌstɪs/"},
+    {en:"labour",zh:"劳动；劳动力",phonetic:"/ˈleɪbər/"},{en:"landscape",zh:"风景；景观",phonetic:"/ˈlændskeɪp/"},
+    {en:"literature",zh:"文学；文献",phonetic:"/ˈlɪtrətʃər/"},{en:"luxury",zh:"奢侈；奢侈品",phonetic:"/ˈlʌkʃəri/"}
+  ]
+};
+
+// ==================== 游戏引擎 ====================
+let words = []; // 当前等级的所有单词
+let currentWordIdx = -1;
+let currentMode = 'choice'; // 'choice' or 'spell'
+let sessionWords = []; // 本轮会话中出现的单词
+let sessionCorrect = 0;
+let sessionWrong = 0;
+let currentStreak = 0;
+let bestStreak = 0;
+let todayCount = 0;
+let currentLevel = 1;
+let isAnswering = false;
+
+// 单词状态: { en: { box: 1-5, correct: n, wrong: n, lastSeen: timestamp } }
+let wordState = {};
+
+// ==================== 初始化 ====================
+function init() {
+  loadState();
+  updateStats();
+  renderLevelBadges();
+  calcDaysLeft();
+}
+
+function calcDaysLeft() {
+  const now = new Date();
+  const gaokao = new Date(2026, 5, 7); // June 7, 2026
+  const diff = Math.ceil((gaokao - now) / (1000 * 60 * 60 * 24));
+  document.getElementById('daysLeft').textContent = 
+    diff > 0 ? `距高考仅剩 ${diff} 天` : '高考进行中，加油！';
+}
+
+function loadState() {
+  const saved = localStorage.getItem('gaokao_vocab_state');
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      wordState = data.wordState || {};
+      currentLevel = data.currentLevel || 1;
+      bestStreak = data.bestStreak || 0;
+      const today = new Date().toDateString();
+      if (data.lastDate !== today) {
+        todayCount = 0;
+      } else {
+        todayCount = data.todayCount || 0;
+      }
+    } catch(e) { /* reset */ }
+  }
+}
+
+function saveState() {
+  const data = {
+    wordState,
+    currentLevel,
+    bestStreak,
+    todayCount,
+    lastDate: new Date().toDateString()
+  };
+  localStorage.setItem('gaokao_vocab_state', JSON.stringify(data));
+}
+
+function getWordStatus(en) {
+  return wordState[en] || { box: 1, correct: 0, wrong: 0, lastSeen: 0 };
+}
+
+function updateWordStatus(en, isCorrect) {
+  const s = getWordStatus(en);
+  if (isCorrect) {
+    s.correct++;
+    s.box = Math.min(5, s.box + 1);
+  } else {
+    s.wrong++;
+    s.box = Math.max(1, s.box - 1);
+  }
+  s.lastSeen = Date.now();
+  wordState[en] = s;
+  saveState();
+}
+
+function getWeightedWords(wordList, count) {
+  // 基于box权重选词：box越低权重越高（未掌握的更频繁出现）
+  const weighted = wordList.map(w => {
+    const s = getWordStatus(w.en);
+    const weight = 6 - s.box; // box1→5, box5→1
+    return { word: w, weight: Math.max(1, weight) };
+  });
+  // 优先选box<=2的（不熟悉），然后补充box高的
+  const unfamiliar = weighted.filter(w => w.weight >= 4);
+  const familiar = weighted.filter(w => w.weight < 4);
+  // 打乱
+  const shuffle = arr => arr.sort(() => Math.random() - 0.5);
+  const selected = [];
+  // 70%不熟悉的，30%熟悉的（用于巩固）
+  const unfamiliarCount = Math.floor(count * 0.7);
+  selected.push(...shuffle(unfamiliar).slice(0, unfamiliarCount));
+  selected.push(...shuffle(familiar).slice(0, count - selected.length));
+  // 如果还不够，从不熟悉池补充
+  if (selected.length < count) {
+    const remaining = shuffle(unfamiliar.filter(w => !selected.includes(w)));
+    selected.push(...remaining.slice(0, count - selected.length));
+  }
+  return shuffle(selected.map(s => s.word));
+}
+
+// ==================== 游戏流程 ====================
+function getWordsForLevel(level) {
+  let all = [];
+  if (level >= 1) all = all.concat(WORD_BANK.level1);
+  if (level >= 2) all = all.concat(WORD_BANK.level2);
+  if (level >= 3) all = all.concat(WORD_BANK.level3);
+  return all;
+}
+
+function startGame() {
+  const allWords = getWordsForLevel(currentLevel);
+  words = getWeightedWords(allWords, 25); // 每轮25个词
+  sessionWords = [];
+  sessionCorrect = 0;
+  sessionWrong = 0;
+  currentStreak = 0;
+  currentWordIdx = -1;
+  document.getElementById('controls').style.display = 'flex';
+  document.getElementById('wordListPanel').style.display = 'none';
+  nextWord();
+}
+
+function nextWord() {
+  if (currentWordIdx >= words.length - 1) {
+    showResults();
+    return;
+  }
+  currentWordIdx++;
+  isAnswering = true;
+  const word = words[currentWordIdx];
+  renderQuestion(word);
+}
+
+function renderQuestion(word) {
+  const area = document.getElementById('gameArea');
+  const feedbackDiv = document.createElement('div');
+  feedbackDiv.className = 'feedback';
+  feedbackDiv.id = 'feedbackMsg';
+  
+  if (currentMode === 'choice') {
+    // 英译中选择
+    const options = generateOptions(word, 4);
+    area.innerHTML = `
+      <div class="word-display">
+        <div class="word-big">${word.en} ${word.tag ? '<span style="font-size:0.4em;background:#e74c3c;color:#fff;padding:2px 8px;border-radius:10px;vertical-align:middle;margin-left:6px;">' + word.tag + '</span>' : ''}</div>
+        <div class="word-phonetic">${word.phonetic}</div>
+        <div class="question-prompt">请选择正确的中文释义：</div>
+      </div>
+      <div class="options-grid">
+        ${options.map((opt,i) => `
+          <button class="option-btn" onclick="checkAnswer('${i}', '${opt.en}', event)" data-idx="${i}">
+            ${opt.zh}
+          </button>
+        `).join('')}
+      </div>
+      <div class="feedback" id="feedbackMsg"></div>
+    `;
+  } else {
+    // 中译英拼写模式
+    area.innerHTML = `
+      <div class="word-display">
+        <div class="question-prompt">请根据中文释义拼写英文单词：</div>
+        <div class="question-target">${word.zh} ${word.tag ? '<span style="font-size:0.4em;background:#e74c3c;color:#fff;padding:2px 8px;border-radius:10px;vertical-align:middle;margin-left:6px;">' + word.tag + '</span>' : ''}</div>
+        ${word.phonetic ? `<div class="word-hint">音标提示：${word.phonetic}</div>` : ''}
+      </div>
+      <div class="input-area">
+        <input type="text" id="spellInput" placeholder="输入英文单词..." autocomplete="off" autofocus>
+        <button onclick="checkSpell()">确认</button>
+      </div>
+      <div class="feedback" id="feedbackMsg"></div>
+    `;
+    
+    // 回车提交
+    setTimeout(() => {
+      const inp = document.getElementById('spellInput');
+      if (inp) {
+        inp.focus();
+        inp.addEventListener('keydown', e => { if (e.key === 'Enter') checkSpell(); });
+      }
+    }, 100);
+  }
+}
+
+function generateOptions(correct, count) {
+  const allEn = Object.keys(wordState).length > 0 ? 
+    Object.keys(wordState) : getWordsForLevel(3).map(w => w.en);
+  
+  // 选3个不同的干扰项
+  const distractors = [];
+  const pool = getWordsForLevel(currentLevel).filter(w => w.en !== correct.en);
+  const shuffled = pool.sort(() => Math.random() - 0.5);
+  
+  for (let w of shuffled) {
+    if (distractors.length >= count - 1) break;
+    if (!distractors.find(d => d.zh === w.zh)) {
+      distractors.push(w);
+    }
+  }
+  
+  const options = [correct, ...distractors];
+  return options.sort(() => Math.random() - 0.5);
+}
+
+function checkAnswer(idx, en, event) {
+  if (!isAnswering) return;
+  isAnswering = false;
+  
+  const word = words[currentWordIdx];
+  const isCorrect = (en === word.en);
+  
+  // 高亮按钮
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach(b => {
+    b.disabled = true;
+    const bEn = b.getAttribute('onclick').match(/'([^']+)'/);
+    if (bEn && bEn[1] === word.en) b.classList.add('correct');
+    if (b.getAttribute('data-idx') === idx && !isCorrect) b.classList.add('wrong');
+  });
+  
+  showFeedback(isCorrect, word);
+}
+
+function checkSpell() {
+  if (!isAnswering) return;
+  const input = document.getElementById('spellInput');
+  if (!input) return;
+  const answer = input.value.trim().toLowerCase();
+  if (!answer) return;
+  
+  isAnswering = false;
+  const word = words[currentWordIdx];
+  const isCorrect = (answer === word.en.toLowerCase());
+  document.getElementById('spellInput').disabled = true;
+  
+  showFeedback(isCorrect, word);
+}
+
+function showFeedback(isCorrect, word) {
+  const fb = document.getElementById('feedbackMsg');
+  if (!fb) return;
+  
+  fb.className = 'feedback show ' + (isCorrect ? 'correct-fb' : 'wrong-fb');
+  
+  if (isCorrect) {
+    sessionCorrect++;
+    currentStreak++;
+    if (currentStreak > bestStreak) bestStreak = currentStreak;
+    const extraInfo = word.tag ? `<br><span style="font-size:0.85em;color:var(--primary)">⚠️ ${word.tag}词 — 此前试卷中曾写错，务必巩固</span>` : '';
+    fb.innerHTML = `
+      ✅ 正确！ <strong>${word.en}</strong> = ${word.zh}
+      ${currentStreak >= 5 ? '<br>🔥 连续正确 ' + currentStreak + ' 题！太棒了！' : ''}
+      ${extraInfo}
+      <br><button class="btn btn-green" onclick="nextWord()" style="margin-top:10px;font-size:0.9em;">下一题 →</button>
+    `;
+  } else {
+    sessionWrong++;
+    currentStreak = 0;
+    const verbHint = (word.en==='teach')?' 过去式：taught':(word.en==='think')?' 过去式：thought':(word.en==='catch')?' 过去式：caught':(word.en==='lose')?' 过去式：lost':'';
+    const extraInfo = word.tag ? `<br><span style="font-size:0.85em;color:var(--primary)">⚠️ ${word.tag}词${verbHint} — 此前试卷中曾写错，务必巩固</span>` : '';
+    fb.innerHTML = `
+      ❌ 答案是：<strong>${word.en}</strong> = ${word.zh}
+      <br><span style="font-size:0.9em;color:#888">${word.phonetic}</span>
+      ${extraInfo}
+      <br><button class="btn btn-primary" onclick="nextWord()" style="margin-top:10px;font-size:0.9em;">记住了，下一题 →</button>
+    `;
+  }
+  
+  todayCount++;
+  updateWordStatus(word.en, isCorrect);
+  updateStats();
+  
+  // 记录本轮词汇
+  if (!sessionWords.find(w => w.en === word.en)) {
+    sessionWords.push({...word, status: isCorrect ? 'mastered' : 'learning'});
+  } else {
+    const sw = sessionWords.find(w => w.en === word.en);
+    if (isCorrect) sw.status = 'mastered';
+  }
+}
+
+function skipWord() {
+  if (!isAnswering) return;
+  isAnswering = false;
+  const word = words[currentWordIdx];
+  updateWordStatus(word.en, false);
+  todayCount++;
+  updateStats();
+  if (!sessionWords.find(w => w.en === word.en)) {
+    sessionWords.push({...word, status: 'learning'});
+  }
+  nextWord();
+}
+
+function endSession() {
+  isAnswering = false;
+  showResults();
+}
+
+function showResults() {
+  document.getElementById('controls').style.display = 'none';
+  const total = sessionCorrect + sessionWrong;
+  const accuracy = total > 0 ? Math.round(sessionCorrect / total * 100) : 0;
+  
+  let emoji = '💪';
+  let msg = '继续加油！';
+  if (accuracy >= 90) { emoji = '🌟'; msg = '非常出色！'; }
+  else if (accuracy >= 75) { emoji = '👏'; msg = '做得很好！'; }
+  else if (accuracy >= 60) { emoji = '📖'; msg = '稳步提升中！'; }
+  
+  document.getElementById('gameArea').innerHTML = `
+    <div class="result-screen">
+      <div class="big-emoji">${emoji}</div>
+      <h2>${msg}</h2>
+      <div class="score">${accuracy}%</div>
+      <div class="detail">
+        正确 <strong style="color:var(--green)">${sessionCorrect}</strong> 题 · 
+        错误 <strong style="color:var(--accent)">${sessionWrong}</strong> 题 · 
+        共 <strong>${total}</strong> 题<br>
+        连续正确 <strong>${bestStreak}</strong> 题 · 
+        今日累计 <strong>${todayCount}</strong> 题
+      </div>
+      <button class="btn btn-primary" onclick="startGame()" style="font-size:1.1em;padding:12px 36px;">
+        🔄 再来一轮
+      </button>
+    </div>
+  `;
+  
+  updateStats();
+  renderWordList();
+}
+
+function renderWordList() {
+  const panel = document.getElementById('wordListPanel');
+  const tags = document.getElementById('wordTags');
+  const count = document.getElementById('wordCount');
+  
+  panel.style.display = sessionWords.length > 0 ? 'block' : 'none';
+  count.textContent = `(${sessionWords.length}词)`;
+  
+  tags.innerHTML = sessionWords.map(w => `
+    <span class="word-tag ${w.status}" title="${w.zh}">
+      ${w.en}
+      <span style="font-size:0.7em;margin-left:4px;">${w.zh}</span>
+    </span>
+  `).join('');
+}
+
+function switchMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach((b,i) => {
+    b.classList.toggle('active', (i===0 && mode==='choice') || (i===1 && mode==='spell'));
+  });
+  // 重新开始
+  startGame();
+}
+
+// ==================== 统计 ====================
+function updateStats() {
+  const allWords = getWordsForLevel(3);
+  const mastered = allWords.filter(w => getWordStatus(w.en).box >= 4).length;
+  const total = allWords.length;
+  
+  document.getElementById('statMastered').textContent = mastered;
+  document.getElementById('statStreak').textContent = currentStreak;
+  document.getElementById('statToday').textContent = todayCount;
+  
+  const totalAttempts = Object.values(wordState).reduce((sum, s) => sum + s.correct + s.wrong, 0);
+  const totalCorrect = Object.values(wordState).reduce((sum, s) => sum + s.correct, 0);
+  const acc = totalAttempts > 0 ? Math.round(totalCorrect / totalAttempts * 100) : 0;
+  document.getElementById('statAccuracy').textContent = acc + '%';
+  
+  const pct = Math.round(mastered / total * 100);
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressBar').style.width = pct + '%';
+  
+  renderLevelBadges();
+}
+
+function renderLevelBadges() {
+  const row = document.getElementById('levelRow');
+  const level1Words = WORD_BANK.level1;
+  const mastered1 = level1Words.filter(w => getWordStatus(w.en).box >= 4).length;
+  const pct1 = Math.round(mastered1 / level1Words.length * 100);
+  
+  const allL2 = [...WORD_BANK.level1, ...WORD_BANK.level2];
+  const mastered2 = allL2.filter(w => getWordStatus(w.en).box >= 4).length;
+  const pct2 = Math.round(mastered2 / allL2.length * 100);
+  
+  const allL3 = [...allL2, ...WORD_BANK.level3];
+  const mastered3 = allL3.filter(w => getWordStatus(w.en).box >= 4).length;
+  const pct3 = Math.round(mastered3 / allL3.length * 100);
+  
+  const badges = [
+    { name: '🔰 关卡一', desc: '最高频词', pct: pct1, cls: currentLevel>=1 ? (pct1>=70 ? 'unlocked' : 'active') : 'locked', unlocked: true },
+    { name: '⭐ 关卡二', desc: '高频扩展', pct: pct2, cls: currentLevel>=2 ? (pct2>=50 ? 'unlocked' : 'active') : 'locked', unlocked: pct1 >= 60 },
+    { name: '🏆 关卡三', desc: '全面掌握', pct: pct3, cls: currentLevel>=3 ? (pct3>=50 ? 'unlocked' : 'active') : 'locked', unlocked: pct2 >= 50 }
+  ];
+  
+  row.innerHTML = badges.map((b,i) => `
+    <div class="level-badge ${b.cls}" onclick="switchLevel(${i+1})" 
+         style="cursor:${b.unlocked ? 'pointer' : 'not-allowed'}"
+         title="${b.unlocked ? '点击切换到此关卡' : '完成前一关卡解锁'}">
+      <div>${b.name}</div>
+      <div style="font-size:0.65em;margin:2px 0">${b.desc}</div>
+      <div class="star">${'⭐'.repeat(Math.floor(b.pct/20))}</div>
+      <div style="font-size:0.7em">${b.pct}%</div>
+    </div>
+  `).join('');
+}
+
+function switchLevel(level) {
+  const allL2 = [...WORD_BANK.level1, ...WORD_BANK.level2];
+  const mastered1 = WORD_BANK.level1.filter(w => getWordStatus(w.en).box >= 4).length;
+  const pct1 = Math.round(mastered1 / WORD_BANK.level1.length * 100);
+  const mastered2 = allL2.filter(w => getWordStatus(w.en).box >= 4).length;
+  const pct2 = Math.round(mastered2 / allL2.length * 100);
+  
+  if (level === 1) {
+    currentLevel = 1;
+  } else if (level === 2 && pct1 >= 60) {
+    currentLevel = 2;
+  } else if (level === 3 && pct2 >= 50) {
+    currentLevel = 3;
+  } else if (level === 2 || level === 3) {
+    alert('请先完成前一关卡的掌握（≥60%），再挑战更高关卡！');
+    return;
+  }
+  saveState();
+  startGame();
+}
+
+// ==================== 键盘快捷键 ====================
+document.addEventListener('keydown', e => {
+  if (currentMode === 'choice' && isAnswering) {
+    const keys = ['1','2','3','4'];
+    const idx = keys.indexOf(e.key);
+    if (idx >= 0) {
+      const btns = document.querySelectorAll('.option-btn');
+      if (btns[idx]) btns[idx].click();
+    }
+  }
+  if (e.key === ' ' && !isAnswering && document.querySelector('.result-screen')) {
+    e.preventDefault();
+    startGame();
+  }
+});
+
+init();
+</script>
+</body>
+</html>
